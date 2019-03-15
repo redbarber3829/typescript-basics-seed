@@ -4,7 +4,7 @@ function multiply(a, b) {
 
 console.log(multiply(5, 25));
 
-//defining a parameter with a default value
+//defining a parameter with a default  value
 function multiplyWithDefault(a, b = 25) {
   return a * b;
 }
