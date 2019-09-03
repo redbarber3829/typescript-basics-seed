@@ -13,7 +13,7 @@ const order = {
 
 //in ES6 or TS this is the corresponding implementation
 const orderES6 = { pizza, toppings };
-//create  test a property on an object based on a value of other property (the property name is defined based on the variable name)
+//create  a property on an object based on a value of other property (the property name is defined based on the variable name)
 
 console.log(order);
 console.log(orderES6);
