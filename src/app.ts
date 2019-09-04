@@ -6,9 +6,8 @@ If we want to merge all toping we would use concat method*/
 
 /*const allToppings = toppings.concat(newToppings);*/
 
-/*
-using the array spead operator
-the array spread operator is a kind of the reverse of the rest operator
+/*new way of merging using the array spead operator
+the array spread operator is a kind of reverse of the rest operator
 while the rest operator transform a list of argument in a single parameter of type array
 the array spread operator tranform the array in a list of argument
 */
