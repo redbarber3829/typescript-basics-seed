@@ -1,6 +1,11 @@
-interface Pizza  {
-    name: string;
+interface Sizes {
     sizes: string[];
+}
+
+//here we say that Pizza inherit from Sizes interface
+//pizza inherit the property we define in the sizes interface
+interface Pizza extends Sizes  {
+    name: string;   
     getAvailableSizes(): string[];
 };
 
@@ -16,26 +21,4 @@ function createPizza(name: string, sizes: string[]) : Pizza  {
     };
 }
 
-/*-----------------------------------------------------------
-we can also use the assertion type to let typescript infered the type 
-of return
-
-function createPizza(name: string, sizes: string[])  {
-    return {
-        name,
-        sizes,
-        getAvailableSizes(){
-            return this.sizes;
-        }
-    } as Pizza;
-}
-it's problably more readable to define the return type directly in 
-the function signature
------------------------------------------------------------*/
-
 pizza = createPizza('Pepperoni',['small','medium']);
-
-
-//notice that the function declaration as a custom type is little different than
-// a function declaration in an interface
-type getAvailableSizes = () => string[];
