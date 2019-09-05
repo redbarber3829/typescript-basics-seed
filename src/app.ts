@@ -5,14 +5,14 @@ interface Sizes {
 
 interface Pizza extends Sizes  {
     name: string;   
-    toppings?: number; //the way to add an optional properties in an interface is like a function optional argument
+    toppings?: number; 
     getAvailableSizes(): string[];
+    [key: number]: string; //here we add an index signature (the key can be a string or a number)
 };
 
 let pizza: Pizza;
 
 function createPizza(name: string, sizes: string[]) : Pizza  {
-    //here the pizza return don't have a topping property define
     return {
         name,
         sizes,
@@ -23,6 +23,7 @@ function createPizza(name: string, sizes: string[]) : Pizza  {
 }
 
 pizza = createPizza('Pepperoni',['small','medium']);
-//the toppings is being defined after the pizza creation
+pizza[1] = 'xyz'; //here we affect the dynamic property
 pizza.toppings = 1;
 
+//index signature allow us to define multiple dynamic property with different value
