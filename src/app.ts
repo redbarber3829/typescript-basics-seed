@@ -1,24 +1,30 @@
-//the readonly property allow us to only read the property
-//can't modify the property
-/*class Pizza {
-    public toppings: string[] = [];
-    
-    constructor(public name: string){}
+//setter and getter allow us to control internally how a property can be set
 
-    public addTopping(topping: string){
-        this.toppings.push(topping);
+class Sizes {
+    constructor(public sizes: string[]){}
+
+    //setter
+    set availableSizes(sizes: string[]){
+        //we can implement a custom logic here
+        this.sizes = sizes;
     }
+
+    //getter
+    get availableSizes(){
+        //we can implement a logic here
+        return this.sizes; //access an internal property
+    }
+
 }
 
-const pizza = new Pizza('Pepperoni');
-pizza.addTopping('pepperoni');
-console.log(pizza.name);// here we can access the property both on read or on write
-console.log(pizza);
-*/
+const sizes = new Sizes(['small','medium']);
 
-/*----------------------------------------------------------------------------------*/
-//    if we only want to access the property name on read
-/*----------------------------------------------------------------------------------*/
+// invoke getter
+console.log(sizes.availableSizes);
+// invoke setter
+sizes.availableSizes = ['medium', 'large'];
+
+console.log(sizes.availableSizes);
 
 class Pizza {
     public toppings: string[] = [];
@@ -32,6 +38,8 @@ class Pizza {
 
 const pizza = new Pizza('Pepperoni');
 pizza.addTopping('pepperoni');
-console.log(pizza.name);// here we can access the property both on read or on write
-pizza.name = 'ABC' //we can't assign a value to a readonly property
-// a readonly property can't be modified after its initialisation by the constructor
+console.log(pizza.name);
+
+//setter an getter are always public
+//setter and getter offer flexibility with the possibility to had custom logic while 
+//setting a property 
