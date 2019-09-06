@@ -1,41 +1,17 @@
-// class are syntaxic sugar to create constructor function and prototype and inheritance
-
-/*-------------------------------------------------------------*/
-//old way of doing things create a function constructor and using prototype
-/*-------------------------------------------------------------*/
-//we turn off strict mode in ts config file
-/*function Pizza(name: string){
-    this.name = name;
-    this.toppings = [];
-}
-
-//we can call 
-//new Pizza(); // create an instance of the constructor function
-
-//we add a prototype method to the pizza constructor
-
-Pizza.prototype.addTopping = function addTopping(topping: string){
-    this.toppings.push(topping);
-};
-
-const pizza = new Pizza('Pepperoni');
-pizza.addTopping('pepperoni');
-
-console.log(pizza);
-*/
-
-/*-------------------------------------------------------------*/
-//new way of doing things using class
-/*-------------------------------------------------------------*/
-//we turn on strict mode in ts config file
-class Pizza {
-    name: string;
-    toppings: string[] = [];
+//on javascript, there's no private members by defaut
+//using typescript we can have this behaviour
+//if we try to access something that we consider as private we will throw an error
+//private is something internal in a class that we don't want to access
+/*class Pizza {
+    
+    name: string;//this property is public by default
+    toppings: string[] = [];//this property is public by default
     
     constructor(name: string){
         this.name = name;
     }
 
+    //this method is public
     addTopping(topping: string){
         this.toppings.push(topping);
     }
@@ -44,6 +20,58 @@ class Pizza {
 const pizza = new Pizza('Pepperoni');
 pizza.addTopping('pepperoni');
 
+console.log(pizza);*/
+
+/*------------------------------------------------------------------------*/
+//by defaut, the properties or method attached to a class are public
+//this is equivalent to
+/*class Pizza {
+    public name: string;
+    public toppings: string[] = [];
+    
+    constructor(name: string){
+        this.name = name;
+    }
+
+    public addTopping(topping: string){
+        this.toppings.push(topping);
+    }
+}*/
+
+//if we want the method addTopping to be internal, we 
+// need to declare it like this
+/*private addTopping(topping: string){
+   this.toppings.push(topping);
+}*/
+
+/*------------------------------------------------------------------------*/
+//we can define a property private and affect it on the constructor using
+class Pizza {
+    public toppings: string[] = [];
+    
+    constructor(private name: string){}
+
+    //this method is public
+    public addTopping(topping: string){
+        this.toppings.push(topping);
+    }
+}
+
+const pizza = new Pizza('Pepperoni');
+pizza.addTopping('pepperoni');
+//here we can't access pizza.name
+
 console.log(pizza);
 
-//the syntax class in typescript is easier to use than plain old javascript using prototype
+//constructor(private name: string){} 
+//
+//is equivalent to
+//
+//private name: string;
+//constructor(name: string){
+//    this.name = name;
+//}
+
+//it also work with a public property
+//constructor(public name: string){}
+
