@@ -1,49 +1,14 @@
-/*
-//if we make the property sizes private in base class Sizes
-abstract class Sizes {
-    constructor(private sizes: string[]){}
-
-    set availableSizes(sizes: string[]){
-        this.sizes = sizes;
-    }
-
-    get availableSizes(){
-        return this.sizes;
-    }
-
-}
-
-class Pizza extends Sizes {
-    public toppings: string[] = [];
-    
-    //here we don't specify the accessibility of the sizes property
-    //if we specify it as public in the inherited we have a conflict with
-    //the accessibility define in the base class which is more restricted
-    constructor(readonly name: string, sizes: string[]){
-        super(sizes);
-    }
-
-    public addTopping(topping: string){
-        this.toppings.push(topping);
-    }
-}
-
-const pizza = new Pizza('Pepperoni',['small', 'medium']);
-//here we can't call access to the propery sizes as 
-console.log(pizza.sizes);
-pizza.addTopping('pepperoni');
-console.log(pizza.name);
+/* interface allow us to define a structural contract
 */
 
-/*------------------------------------------------------------------------------*/
-//the purpose of the protected is to prevent accessing the property on an instance of 
-//a class like  this console.log(pizza.sizes);
-//but allow us to acces the property inside the inherited class
-/*------------------------------------------------------------------------------*/
+interface SizesInterface {
+    availableSizes: string[]; //with a setter or getter we don't use the funtion call to define, we just use a property definition
+}
 
 
-abstract class Sizes {
-    //define the property sizes as protected
+//we use the keyword 'implements' in order to tell that class Sizes should respect
+//the contract define by the interface SizesInterface
+abstract class Sizes implements SizesInterface {
     constructor(protected sizes: string[]){}
 
     set availableSizes(sizes: string[]){
@@ -56,18 +21,23 @@ abstract class Sizes {
 
 }
 
-class Pizza extends Sizes {
+//the pizzaInterface inherit the SizesInterface
+interface PizzaInterface extends SizesInterface {
+    readonly name: string; //the property is public -> we are allowed to define a readonly property in the interface
+    toppings: string[];
+    updateSizes(sizes: string[]) : void; //declare a method on the interface
+    addTopping(topping: string) : void;
+}
+
+//here we say that Pizza implemnet PizzaInterface
+class Pizza extends Sizes implements PizzaInterface {
     public toppings: string[] = [];
     
     constructor(readonly name: string, sizes: string[]){
         super(sizes);
     }
 
-    //add a method that update the sizes property of the base class
     public updateSizes(sizes: string[]){
-        //here we need to access the sizes property
-        //as long as the property sizes is private, it is only accessible within class 'Sizes'
-        //the protected accessibility allow us to access the property in the inherited class
         this.sizes = sizes;
     }
 
@@ -80,3 +50,13 @@ const pizza = new Pizza('Pepperoni',['small', 'medium']);
 console.log(pizza.availableSizes);
 pizza.updateSizes(['large']);
 console.log(pizza.availableSizes);
+
+//Notice when a property is public, we can expose it in the interface
+//the property sizes defined in class Sizes is protected -> it can't be exposed 
+//in the interface SizesInterface since it s not public (it's the same with private member)
+//an interface can inherit from another interface
+
+//the advantage of the interface, if it defines a strict contract that should respect a class
+//as long as we make a mistake in the spelling of a property in a class, the ts compiler inform us that
+//the class incorrectly implements interface
+//it makes the code more robust and prevent us from doing wrong things
