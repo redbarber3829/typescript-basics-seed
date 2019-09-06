@@ -1,5 +1,12 @@
 
-class Sizes {
+/**the purpose here is to avoid to create an instance of a Sizes class 
+ * we can use abstract in order to avoid creating a new instance of a classe
+ * avoid to call new Sizes(['small']);
+*/
+
+//we use the abstract keyword in order to create an abstract class
+
+abstract class Sizes {
     constructor(public sizes: string[]){}
 
     set availableSizes(sizes: string[]){
@@ -12,12 +19,10 @@ class Sizes {
 
 }
 
-//the pizza class inherit from the Sizes class
 class Pizza extends Sizes {
     public toppings: string[] = [];
     
     constructor(readonly name: string, public sizes: string[]){
-        //call the constructor of the base class
         super(sizes);
     }
 
@@ -27,10 +32,12 @@ class Pizza extends Sizes {
 }
 
 const pizza = new Pizza('Pepperoni',['small', 'medium']);
-//inherit the getter from the base class
 console.log(pizza.availableSizes);
 pizza.addTopping('pepperoni');
 console.log(pizza.name);
 
-//when a class extend an other class, it inherit the getter, setter, method
-//if the base class has a construtor with parameter you need to call the super class constructor with parameter in the inherited class
+//we can export the abstract class in order to be used in a different file
+//export abstract class Sizes {
+
+ // if we try to instantiate an abstract class  new Sizes(['small']);
+ //we have a message telling that we can't instantiate an abstract class
