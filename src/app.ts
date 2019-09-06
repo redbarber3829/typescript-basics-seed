@@ -33,3 +33,4 @@ pizza.addTopping('pepperoni');
 console.log(pizza.name);
 
 //when a class extend an other class, it inherit the getter, setter, method
+//if the base class has a construtor with parameter you need to call the super class constructor with parameter in the inherited class
